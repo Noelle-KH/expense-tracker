@@ -4,7 +4,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 const express = require('express')
 const exphbs = require('express-handlebars')
+
 const app = express()
+require('./config/mongoose')
 const PORT = process.env.PORT || 3000
 
 app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
