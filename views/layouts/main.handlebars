@@ -15,13 +15,26 @@
     <header class="mb-5">
       <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <div class="container-fluid">
-          <a class="navbar-brand" href="/">家庭記帳本</a>
-          <a
-            role="button"
-            class="btn btn-outline-success"
-            href="/users/login"
-            type="submit"
-          >登入</a>
+          {{#if user}}
+            <a class="navbar-brand" href="/">{{user.name}} 的記帳本</a>
+          {{else}}
+            <a class="navbar-brand" href="/">家庭記帳本</a>
+          {{/if}}
+          {{#if isAuthenticate}}
+            <a
+              role="button"
+              class="btn btn-outline-secondary"
+              href="/users/logout"
+              type="submit"
+            >登出</a>
+          {{else}}
+            <a
+              role="button"
+              class="btn btn-outline-success"
+              href="/users/login"
+              type="submit"
+            >登入</a>
+          {{/if}}
         </div>
       </nav>
     </header>

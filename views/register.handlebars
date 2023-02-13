@@ -2,9 +2,10 @@
   <div class="col-md-6 mx-auto mb-5">
     <div class="card card-body">
       <h1 class="text-center mt-3">註冊會員</h1>
+      {{> messages}}
       <form action="/users/register" method="POST">
         <div class="mb-3">
-          <label for="name" class="mb-2">會員名稱</label>
+          <label for="name" class="mb-2"><span class="text-danger">*</span> 會員名稱</label>
           <input
             type="text"
             id="name"
@@ -15,7 +16,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="email" class="mb-2">Email</label>
+          <label for="email" class="mb-2"><span class="text-danger">*</span> Email</label>
           <input
             type="email"
             id="email"
@@ -26,7 +27,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="password" class="mb-2">密碼</label>
+          <label for="password" class="mb-2"><span class="text-danger">*</span> 密碼</label>
           <input
             type="password"
             id="password"
@@ -37,7 +38,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="confirmPassword" class="mb-2">再次輸入密碼</label>
+          <label for="confirmPassword" class="mb-2"><span class="text-danger">*</span> 再次輸入密碼</label>
           <input
             type="password"
             id="confirmPassword"

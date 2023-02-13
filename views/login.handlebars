@@ -2,10 +2,10 @@
   <div class="col-md-6 mx-auto mb-5">
     <div class="card card-body">
       <h1 class="text-center mt-3">登入會員</h1>
-
+      {{> messages}}
       <form action="/users/login" method="POST">
         <div class="mb-3">
-          <label for="email" class="mb-2">Email</label>
+          <label for="email" class="mb-2"><span class="text-danger">*</span> Email</label>
           <input
             type="email"
             id="email"
@@ -15,7 +15,7 @@
           />
         </div>
         <div class="mb-3">
-          <label for="password" class="mb-2">密碼</label>
+          <label for="password" class="mb-2"><span class="text-danger">*</span> 密碼</label>
           <input
             type="password"
             id="password"
