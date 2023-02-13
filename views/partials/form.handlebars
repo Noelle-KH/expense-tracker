@@ -1,0 +1,51 @@
+<form class="row col-6 mx-auto" action="/records" method="POST">
+  <div class="my-3 col-12">
+    <label for="name" class="form-label">
+      <span class="text-danger">*</span>
+      名稱</label>
+    <input
+      type="text"
+      class="form-control"
+      id="name"
+      placeholder="請輸入名稱"
+    />
+  </div>
+  <div class="my-3 col-12">
+    <label for="date" class="form-label"><span class="text-danger">*</span>
+      日期</label>
+    <input type="date" class="form-control" id="date" />
+  </div>
+  <div class="my-3 col-12">
+    <label for="category" class="form-label">
+      <span class="text-danger">*</span>
+      類別</label>
+    <select
+      name="category"
+      id="select-category"
+      class="form-control"
+      aria-label="select by category"
+    >
+      <option selected disabled hidden>選擇類別</option>
+      <option value="家居物業">家居物業</option>
+      <option value="交通出行">交通出行</option>
+      <option value="休閒娛樂">休閒娛樂</option>
+      <option value="餐飲食品">餐飲食品</option>
+      <option value="其他">其他</option>
+    </select>
+  </div>
+  <div class="my-3 col-12">
+    <label for="amount" class="form-label">
+      <span class="text-danger">*</span>
+      金額</label>
+    <input
+      type="number"
+      class="form-control"
+      id="amount"
+      placeholder="請輸入金額"
+    />
+  </div>
+  <div class="my-3 text-center">
+    <a href="/" type="button" class="btn btn-outline-primary">返回</a>
+    <button type="submit" class="btn btn-outline-success ms-3">提交</button>
+  </div>
+</form>
