@@ -2,7 +2,7 @@ const router = require('express').Router()
 const { validationResult } = require('express-validator')
 const passport = require('passport')
 const bcrypt = require('bcryptjs')
-const validator = require('../../middleware/validator')
+const validator = require('../../middleware/validator').registerValidator
 const User = require('../../models/user')
 
 router.get('/login', (req, res) => {
