@@ -22,24 +22,31 @@
 <div class="row col-12 col-md-6 mx-auto my-5">
   <table class="table">
     <tbody>
-      <tr class="align-middle">
-        <td class="text-info col-1 fs-4"><i class="fa-solid fa-house"></i></td>
-        <td class="col-8">
-          <p class="mb-0">午餐</p>
-          <small>2023/02/12</small>
-        </td>
-        <td class="col-1">120</td>
-        <td class="col-1 text-center">
-          <a href="/records/edit" class="text-primary">
-            <i class="fa-solid fa-pen-to-square"></i>
-          </a>
-        </td>
-        <td class="col-1 text-center">
-          <a href="/records" class="text-danger">
-            <i class="fa-solid fa-trash"></i>
-          </a>
-        </td>
-      </tr>
+      {{#unless records}}
+        <p class="text-center">請新增支出項目</p>
+      {{/unless}}
+      {{#each records}}
+        <tr class="align-middle">
+          <td class="text-info col-1 fs-4"><i
+              class="{{this.categoryId.icon}}"
+            ></i></td>
+          <td class="col-8">
+            <p class="mb-0">{{this.name}}</p>
+            <small>{{this.date}}</small>
+          </td>
+          <td class="col-1">{{this.amount}}</td>
+          <td class="col-1 text-center">
+            <a href="/records/edit" class="text-primary">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </a>
+          </td>
+          <td class="col-1 text-center">
+            <a href="/records" class="text-danger">
+              <i class="fa-solid fa-trash"></i>
+            </a>
+          </td>
+        </tr>
+      {{/each}}
     </tbody>
   </table>
 </div>

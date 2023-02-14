@@ -13,7 +13,14 @@ const passport = require('./config/passport')
 const routes = require('./routes')
 const PORT = process.env.PORT || 3000
 
-app.engine('handlebars', exphbs.engine({ defaultLayout: 'main' }))
+app.engine('handlebars', exphbs.engine({
+  defaultLayout: 'main',
+  helpers: {
+    ifCond: function (a, b, options) {
+      return a.toString() === b ? options.fn(this) : options.inverse(this)
+    }
+  }
+}))
 app.set('view engine', 'handlebars')
 app.use(express.urlencoded({ extended: true }))
 app.use(session({

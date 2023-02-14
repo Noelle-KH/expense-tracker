@@ -1,4 +1,5 @@
 <form class="row col-6 mx-auto" action="/records" method="POST">
+  {{> messages}} 
   <div class="my-3 col-12">
     <label for="name" class="form-label">
       <span class="text-danger">*</span>
@@ -7,30 +8,36 @@
       type="text"
       class="form-control"
       id="name"
+      name="name"
       placeholder="請輸入名稱"
+      value="{{name}}"
+      required
     />
   </div>
   <div class="my-3 col-12">
     <label for="date" class="form-label"><span class="text-danger">*</span>
       日期</label>
-    <input type="date" class="form-control" id="date" />
+    <input type="date" class="form-control" id="date" name="date" value="{{date}}" required />
   </div>
   <div class="my-3 col-12">
     <label for="category" class="form-label">
       <span class="text-danger">*</span>
       類別</label>
     <select
-      name="category"
+      name="categoryId"
       id="select-category"
       class="form-control"
       aria-label="select by category"
+      required
     >
-      <option selected disabled hidden>選擇類別</option>
-      <option value="家居物業">家居物業</option>
-      <option value="交通出行">交通出行</option>
-      <option value="休閒娛樂">休閒娛樂</option>
-      <option value="餐飲食品">餐飲食品</option>
-      <option value="其他">其他</option>
+      <option selected disabled value="">選擇類別</option>
+      {{#each category}}
+        {{#if ../categoryId}}
+          <option value="{{this._id}}" {{#ifCond this._id ../categoryId}}selected{{/ifCond}}>{{this.name}}</option>
+        {{else}}
+          <option value="{{this._id}}">{{this.name}}</option>
+        {{/if}}
+      {{/each}}
     </select>
   </div>
   <div class="my-3 col-12">
@@ -41,7 +48,10 @@
       type="number"
       class="form-control"
       id="amount"
+      name="amount"
       placeholder="請輸入金額"
+      value="{{amount}}"
+      required
     />
   </div>
   <div class="my-3 text-center">
