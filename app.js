@@ -6,6 +6,7 @@ const express = require('express')
 const exphbs = require('express-handlebars')
 const session = require('express-session')
 const flash = require('connect-flash')
+const methodOverride = require('method-override')
 
 const app = express()
 require('./config/mongoose')
@@ -17,12 +18,13 @@ app.engine('handlebars', exphbs.engine({
   defaultLayout: 'main',
   helpers: {
     ifCond: function (a, b, options) {
-      return a.toString() === b ? options.fn(this) : options.inverse(this)
+      return a.toString() === b.toString() ? options.fn(this) : options.inverse(this)
     }
   }
 }))
 app.set('view engine', 'handlebars')
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,

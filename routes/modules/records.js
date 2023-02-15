@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const { validationResult } = require('express-validator')
 const dayjs = require('dayjs')
-const validator = require('../../middleware/validator').newRecordValidator
+const validator = require('../../middleware/validator').recordValidator
 const Category = require('../../models/category')
 const Record = require('../../models/record')
 
@@ -49,8 +49,52 @@ router.post('/', validator, (req, res) => {
     .catch(error => console.log(error))
 })
 
-router.get('/edit', (req, res) => {
-  res.render('edit')
+router.get('/:_id/edit', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params._id
+  return Promise.all([
+    Category.find({}).lean(),
+    Record.findOne({ _id, userId })
+  ])
+    .then(([category, record]) => {
+      const { name, amount, categoryId } = record
+      const date = dayjs(record.date).format('YYYY-MM-DD')
+      res.render('edit', { category, _id, name, date, amount, categoryId })
+    })
+    .catch(error => console.log(error))
+})
+
+router.put('/:_id', validator, (req, res) => {
+  const userId = req.user._id
+  const _id = req.params._id
+  const { name, date, categoryId, amount } = req.body
+  const errors = validationResult(req)
+  const errorMessages = errors.array().map(error => error.msg)
+
+  if (!errors.isEmpty()) {
+    return Category.find({})
+      .lean()
+      .then(category => res.render('edit', { category, _id, name, date, categoryId, amount, errorMessages }))
+      .catch(error => console.log(error))
+  }
+
+  return Record.findOneAndUpdate({ _id, userId }, { name, date, amount, userId, categoryId })
+    .then(() => {
+      req.flash('success_message', '更新支出項目成功')
+      res.redirect('/')
+    })
+    .catch(error => console.log(error))
+})
+
+router.delete('/:_id', (req, res) => {
+  const userId = req.user._id
+  const _id = req.params._id
+  return Record.findOneAndDelete({ _id, userId })
+    .then(() => {
+      req.flash('success_message', '刪除支出項目成功')
+      res.redirect('/')
+    })
+    .catch(error => console.log(error))
 })
 
 module.exports = router

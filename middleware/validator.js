@@ -27,7 +27,7 @@ module.exports = {
         return true
       })
   ],
-  newRecordValidator: [
+  recordValidator: [
     body('name')
       .notEmpty()
       .withMessage('支出名稱為必填欄位'),
@@ -41,7 +41,7 @@ module.exports = {
       .notEmpty()
       .withMessage('金額為必填欄位')
       .custom(value => {
-        if (value < 0) {
+        if (value <= 0) {
           throw new Error('金額不得小於 0')
         }
         return true
