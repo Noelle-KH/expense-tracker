@@ -7,16 +7,29 @@ const Record = require('../../models/record')
 
 router.get('/', (req, res) => {
   const userId = req.user._id
-  return Record.find({ userId })
-    .populate('categoryId')
+  const selectedCategory = req.query.selectedCategory || 'all'
+  const query = { userId }
+  
+  if (selectedCategory !== 'all') {
+    query.categoryId = selectedCategory
+  }
+
+  return Category.find({})
     .lean()
-    .sort({ date: -1, _id: -1 })
-    .then(records => {
-      if (!records.length) {
-        return res.render('index')
-      }
-      records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
-      res.render('index', { records })
+    .then(category => {
+      return Record.find(query)
+        .populate('categoryId')
+        .lean()
+        .sort({ date: -1, _id: -1 })
+        .then(records => {
+          if (!records.length) {
+            return res.render('index', { category })
+          }
+          records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
+          const totalAmount = records.reduce((total, record) => total + record.amount, 0)
+          res.render('index', { category, selectedCategory, records, totalAmount })
+        })
+        .catch(error => console.log(error))
     })
     .catch(error => console.log(error))
 })

@@ -1,13 +1,24 @@
-<div class="col-12 col-md-6 mx-auto my-5">
-  <select class="form-select" aria-label="Default select example">
-    <option selected disabled hidden>所有類別</option>
-    <option value="家居物業">家居物業</option>
-    <option value="交通出行">交通出行</option>
-    <option value="休閒娛樂">休閒娛樂</option>
-    <option value="餐飲食品">餐飲食品</option>
-    <option value="其他">其他</option>
-  </select>
-</div>
+<form action="/records">
+  <div class="col-12 col-md-6 mx-auto my-5">
+    <select
+      class="form-select"
+      aria-label="Default select example"
+      name="selectedCategory"
+      onchange="this.form.submit()"
+    >
+      <option selected value="all">所有類別</option>
+      {{#each category}}
+        {{#if ../selectedCategory}}
+        <option value="{{this._id}}" {{#ifCond this._id ../selectedCategory}}selected{{/ifCond}}>{{this.name}}</option>
+        {{else}}
+        <option value="{{this._id}}">{{this.name}}</option>
+        {{/if}}
+        
+      {{/each}}
+    </select>
+  </div>
+</form>
+
 <div class="row col-12 col-md-6 mx-auto my-5">
   <a
     href="/records/new"
@@ -16,7 +27,7 @@
   >新增支出</a>
   <div class="text-end col-12 col-sm-8">
     總金額：
-    <h3 class="d-inline">25260</h3>
+    <h3 class="d-inline">{{totalAmount}}</h3>
   </div>
 </div>
 <div class="row col-12 col-md-6 mx-auto my-5">
