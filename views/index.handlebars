@@ -36,14 +36,23 @@
           </td>
           <td class="col-1">{{this.amount}}</td>
           <td class="col-1 text-center">
-            <a href="/records/edit" class="text-primary">
+            <a href="/records/{{this._id}}/edit" class="text-primary">
               <i class="fa-solid fa-pen-to-square"></i>
             </a>
           </td>
           <td class="col-1 text-center">
-            <a href="/records" class="text-danger">
-              <i class="fa-solid fa-trash"></i>
-            </a>
+            <form
+              action="/records/{{this._id}}?_method=DELETE"
+              method="POST"
+              class="d-inline"
+            >
+              <button
+                type="submit"
+                class="p-0 border-0 text-danger"
+                onclick="return confirm('確定要刪除 {{this.name}} 嗎?')"
+              ><i class="fa-solid fa-trash"></i>
+              </button>
+            </form>
           </td>
         </tr>
       {{/each}}

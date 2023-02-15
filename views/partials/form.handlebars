@@ -1,4 +1,8 @@
-<form class="row col-6 mx-auto" action="/records" method="POST">
+{{#if edit}}
+  <form class="row col-6 mx-auto" action="/records/{{_id}}?_method=PUT" method="POST">
+{{else}}
+  <form class="row col-6 mx-auto" action="/records" method="POST">
+{{/if}}
   {{> messages}} 
   <div class="my-3 col-12">
     <label for="name" class="form-label">
