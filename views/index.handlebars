@@ -27,7 +27,11 @@
   >新增支出</a>
   <div class="text-end col-12 col-sm-8">
     總金額：
+    {{#if records}}
     <h3 class="d-inline">{{totalAmount}}</h3>
+    {{else}}
+    <h3 class="d-inline">0</h3>
+    {{/if}}
   </div>
 </div>
 <div class="row col-12 col-md-6 mx-auto my-5">
@@ -59,9 +63,9 @@
             >
               <button
                 type="submit"
-                class="p-0 border-0 text-danger"
+                class="m-0 p-0 border-0 text-danger bg-transparent"
                 onclick="return confirm('確定要刪除 {{this.name}} 嗎?')"
-              ><i class="fa-solid fa-trash"></i>
+              ><i class="fa-regular fa-trash-can"></i>
               </button>
             </form>
           </td>
