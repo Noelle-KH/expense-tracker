@@ -29,15 +29,15 @@ const recordController = {
             records.forEach(record => record.date = dayjs(record.date).format('YYYY-MM-DD'))
             res.render('index', { categories, selectedCategory, records, totalAmount })
           })
-          .catch(error => console.log(error))
+          .catch(error => next(error))
       })
-      .catch(error => console.log(error))
+      .catch(error => next(error))
   },
   newRecord: (req, res) => {
     return Category.find({})
       .lean()
       .then(categories => res.render('new', { categories }))
-      .catch(error => console.log(error))
+      .catch(error => next(error))
   },
   postRecord: (req, res) => {
     const userId = req.user._id
@@ -49,7 +49,7 @@ const recordController = {
       return Category.find({})
         .lean()
         .then(categories => res.render('new', { categories, name, date, categoryId, amount, errorMessages }))
-        .catch(error => console.log(error))
+        .catch(error => next(error))
     }
 
     return Record.create({ name, date, amount, userId, categoryId })
@@ -57,7 +57,7 @@ const recordController = {
         req.flash('success_message', '新增支出項目成功')
         res.redirect('/')
       })
-      .catch(error => console.log(error))
+      .catch(error => next(error))
   },
   editRecord: (req, res) => {
     const userId = req.user._id
@@ -72,7 +72,7 @@ const recordController = {
         const date = dayjs(record.date).format('YYYY-MM-DD')
         res.render('edit', { categories, _id, name, date, amount, categoryId })
       })
-      .catch(error => console.log(error))
+      .catch(error => next(error))
   },
   putRecord: (req, res) => {
     const userId = req.user._id
@@ -85,7 +85,7 @@ const recordController = {
       return Category.find({})
         .lean()
         .then(categories => res.render('edit', { categories, _id, name, date, categoryId, amount, errorMessages }))
-        .catch(error => console.log(error))
+        .catch(error => next(error))
     }
 
     return Record.findOneAndUpdate({ _id, userId }, { name, date, amount, userId, categoryId })
@@ -93,7 +93,7 @@ const recordController = {
         req.flash('success_message', '更新支出項目成功')
         res.redirect('/')
       })
-      .catch(error => console.log(error))
+      .catch(error => next(error))
   },
   deleteRecord: (req, res) => {
     const userId = req.user._id
@@ -104,7 +104,7 @@ const recordController = {
         req.flash('success_message', '刪除支出項目成功')
         res.redirect('/')
       })
-      .catch(error => console.log(error))
+      .catch(error => next(error))
   }
 }
 

@@ -35,9 +35,9 @@ const userController = {
             req.flash('success_message', '註冊成功，請重新登入會員')
             res.redirect('/users/login')
           })
-          .catch(error => console.log(error))
+          .catch(error => next(error))
       })
-      .catch(error => console.log(error))
+      .catch(error => next(error))
   },
   logout: (req, res, next) => {
     req.logout(error => {
