@@ -1,7 +1,21 @@
 const passport = require('passport')
 const LocalStrategy = require('passport-local').Strategy
+const FacebookStrategy = require('passport-facebook').Strategy
+const GoogleStrategy = require('passport-google-oauth2').Strategy
 const bcrypt = require('bcryptjs')
 const User = require('../models/user')
+
+const verifyCallback = (accessToken, refreshToken, profile, done) => {
+  const { name, email } = profile._json
+  return User.findOne({ email })
+    .then(user => {
+      if (user) return done(null, user)
+      const randomPassword = Math.random().toString(36).slice(-8)
+      return User.create({ name, email, password: bcrypt.hashSync(randomPassword, bcrypt.genSaltSync(10)) })
+        .then(user => done(null, user))
+        .catch(error => done(error))
+    })
+}
 
 passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true }, (req, email, password, done) => {
   return User.findOne({ email })
@@ -17,6 +31,19 @@ passport.use(new LocalStrategy({ usernameField: 'email', passReqToCallback: true
     })
     .catch(error => done(error))
 }))
+
+passport.use(new FacebookStrategy({
+  clientID: process.env.FACEBOOK_ID,
+  clientSecret: process.env.FACEBOOK_SECRET,
+  callbackURL: process.env.FACEBOOK_CALLBACK,
+  profileFields: ['email', 'displayName']
+}, verifyCallback))
+
+passport.use(new GoogleStrategy({
+  clientID: process.env.GOOGLE_ID,
+  clientSecret: process.env.GOOGLE_SECRET,
+  callbackURL: process.env.GOOGLE_CALLBACK
+}, verifyCallback))
 
 
 passport.serializeUser((user, done) => {
