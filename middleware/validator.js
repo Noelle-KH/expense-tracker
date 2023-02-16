@@ -1,6 +1,15 @@
 const { body } = require('express-validator')
 
 module.exports = {
+  loginValidator: (req, res, next) => {
+    const { email, password } = req.body
+
+    if (!email || !password) {
+      req.flash('warning_message', '請填寫信箱和密碼')
+      return res.redirect('/users/login')
+    }
+    next()
+  },
   registerValidator: [
     body('name')
       .trim()

@@ -7,7 +7,7 @@
       onchange="this.form.submit()"
     >
       <option selected value="all">所有類別</option>
-      {{#each category}}
+      {{#each categories}}
         {{#if ../selectedCategory}}
         <option value="{{this._id}}" {{#ifCond this._id ../selectedCategory}}selected{{/ifCond}}>{{this.name}}</option>
         {{else}}
