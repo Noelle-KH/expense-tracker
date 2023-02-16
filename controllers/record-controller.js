@@ -55,7 +55,7 @@ const recordController = {
     return Record.create({ name, date, amount, userId, categoryId })
       .then(() => {
         req.flash('success_message', '新增支出項目成功')
-        res.redirect('/')
+        res.redirect('/records')
       })
       .catch(error => next(error))
   },
@@ -91,7 +91,7 @@ const recordController = {
     return Record.findOneAndUpdate({ _id, userId }, { name, date, amount, userId, categoryId })
       .then(() => {
         req.flash('success_message', '更新支出項目成功')
-        res.redirect('/')
+        res.redirect('/records')
       })
       .catch(error => next(error))
   },
@@ -102,7 +102,7 @@ const recordController = {
     return Record.findOneAndDelete({ _id, userId })
       .then(() => {
         req.flash('success_message', '刪除支出項目成功')
-        res.redirect('/')
+        res.redirect('/records')
       })
       .catch(error => next(error))
   }
