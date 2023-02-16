@@ -17,4 +17,4 @@ const authController = {
   })
 }
 
-module.exports = { authController }
+module.exports = authController
