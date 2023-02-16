@@ -4,6 +4,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>家庭記帳本</title>
+    <link rel="shortcut icon" href="/images/favicon.ico" type="image/x-icon" />
     <link rel="stylesheet" href="/styles/bootstrap.css" />
   </head>
   <body>
@@ -11,9 +12,16 @@
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
           {{#if user}}
-            <a class="navbar-brand" href="/">{{user.name}} 的記帳本</a>
+            <a class="navbar-brand" href="/"><i
+                class="fa-solid fa-sack-dollar text-success"
+              ></i>
+              {{user.name}}
+              的記帳本</a>
           {{else}}
-            <a class="navbar-brand" href="/">家庭記帳本</a>
+            <a class="navbar-brand" href="/"><i
+                class="fa-solid fa-sack-dollar text-success"
+              ></i>
+              家庭記帳本</a>
           {{/if}}
           {{#if isAuthenticate}}
             <a
