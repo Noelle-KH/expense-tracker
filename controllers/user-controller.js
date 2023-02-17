@@ -14,7 +14,7 @@ const userController = {
   registerPage: (req, res) => {
     res.render('register')
   },
-  register: (req, res) => {
+  register: (req, res, next) => {
     const { name, email, password, confirmPassword } = req.body
     const errors = validationResult(req)
     const errorMessages = errors.array().map(error => error.msg)

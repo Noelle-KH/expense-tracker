@@ -4,7 +4,7 @@ const Category = require('../models/category')
 const Record = require('../models/record')
 
 const recordController = {
-  getRecords: (req, res) => {
+  getRecords: (req, res, next) => {
     const userId = req.user._id
     const selectedCategory = req.query.selectedCategory || 'all'
     const query = { userId }
@@ -33,13 +33,13 @@ const recordController = {
       })
       .catch(error => next(error))
   },
-  newRecord: (req, res) => {
+  newRecord: (req, res, next) => {
     return Category.find({})
       .lean()
       .then(categories => res.render('new', { categories }))
       .catch(error => next(error))
   },
-  postRecord: (req, res) => {
+  postRecord: (req, res, next) => {
     const userId = req.user._id
     const { name, date, categoryId, amount } = req.body
     const errors = validationResult(req)
@@ -74,7 +74,7 @@ const recordController = {
       })
       .catch(error => next(error))
   },
-  putRecord: (req, res) => {
+  putRecord: (req, res, next) => {
     const userId = req.user._id
     const _id = req.params._id
     const { name, date, categoryId, amount } = req.body
@@ -95,7 +95,7 @@ const recordController = {
       })
       .catch(error => next(error))
   },
-  deleteRecord: (req, res) => {
+  deleteRecord: (req, res, next) => {
     const userId = req.user._id
     const _id = req.params._id
 
